@@ -69,8 +69,8 @@ test.cb('show help - default', stdout, {
 			'    build                                   Build description',
 			'',
 			'  Options',
-			'    --help, -h                              Show the help message',
-			'    --version, -v                           Show the CLI version',
+			'    --help                                  Show help messages',
+			'    --version                               Show CLI version',
 		])
 	}
 });
@@ -87,8 +87,8 @@ test.cb('show help - [--help]', stdout, {
 			'    node                                    Show awesome node',
 			'',
 			'  Options',
-			'    --help, -h                              Show the help message',
-			'    --version, -v                           Show the CLI version',
+			'    --help                                  Show help messages',
+			'    --version                               Show CLI version',
 		])
 	}
 });
@@ -108,8 +108,8 @@ test.cb('script - show help', stdout, {
 			'    install                                 Install packages',
 			'',
 			'  Options',
-			'    --help, -h                              Show the help message',
-			'    --version, -v                           Show the CLI version',
+			'    --help                                  Show help messages',
+			'    --version                               Show CLI version',
 		])
 	}
 });
@@ -126,8 +126,8 @@ test.cb('script - show spesifiec command help with arguments', stdout, {
 			'    <package-name>                          The package name to install',
 			'',
 			'  Options',
-			'    --help, -h                              Show the help message',
-			'    --version, -v                           Show the CLI version',
+			'    --help                                  Show help messages',
+			'    --version                               Show CLI version',
 			'    --verbose                               Verbose the output',
 			'    --save-dev                              Install as devDependencies',
 		])
@@ -143,8 +143,8 @@ test.cb('script - show spesifiec command help - no arguments and multiple aliase
 			'    $ script build [<options>]',
 			'',
 			'  Options',
-			'    --help, -h                              Show the help message',
-			'    --version, -v                           Show the CLI version',
+			'    --help                                  Show help messages',
+			'    --version                               Show CLI version',
 			'    --production, -p, -R                    Build for production mode',
 		])
 	}
@@ -223,8 +223,8 @@ test.cb('immutable - show help', stdout, {
 			'    foo                                     #1 - Foo',
 			'',
 			'  Options',
-			'    --help, -h                              Show the help message',
-			'    --version, -v                           Show the CLI version',
+			'    --help                                  Show help messages',
+			'    --version                               Show CLI version',
 		])
 	}
 });

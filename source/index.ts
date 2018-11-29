@@ -14,8 +14,8 @@ delete require.cache[__filename]; // tslint:disable-line:no-dynamic-delete
 const STATE = (() => {
 	const p = new SetupCommand();
 
-	p.flags('--help').as('-h').boolean(false).describe('Show the help message');
-	p.flags('--version').as('-v').boolean(false).describe('Show the CLI version');
+	p.flags('--help').boolean(false).describe('Show help messages');
+	p.flags('--version').boolean(false).describe('Show CLI version');
 
 	return {
 		// @ts-ignore
