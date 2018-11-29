@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - 10
+  - 8
+  - 6
+cache: npm
+install: npm ci
+before_script:
+  npm --version

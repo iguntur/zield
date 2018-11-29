@@ -1,0 +1,89 @@
+{
+	"name": "zield",
+	"version": "0.0.1-alpha.1",
+	"description": "CLI utility for my scripts",
+	"license": "MIT",
+	"main": "index.js",
+	"files": [
+		"dist",
+		"index.d.ts",
+		"index.js"
+	],
+	"typings": "index.d.ts",
+	"scripts": {
+		"ts:build": "npm run clean && tsc",
+		"ts:check": "tsc --noEmit",
+		"clean": "del dist coverage .nyc_output",
+		"lint": "tslint --fix --format stylish --project .",
+		"build": "npm run clean && npx rollup -c",
+		"build:release": "npm run test && npm run build",
+		"test": "npm run lint && npm run ts:check && ava",
+		"test:coverage": "npm run lint && npm run ts:check && nyc ava",
+		"test:report": "npm run lint && npm run ts:check && nyc --reporter=html ava"
+	},
+	"author": {
+		"name": "Guntur Poetra",
+		"email": "poetra.guntur@gmail.com",
+		"url": "https://github.com/iguntur"
+	},
+	"engines": {
+		"node": ">= 6"
+	},
+	"nyc": {
+		"exclude": [
+			"test",
+			"dist",
+			"**/*.d.ts"
+		],
+		"extension": [
+			".ts"
+		]
+	},
+	"ava": {
+		"compileEnhancements": false,
+		"extensions": [
+			"ts"
+		],
+		"require": [
+			"ts-node/register"
+		],
+		"sources": [
+			"source/**/*.ts"
+		],
+		"files": [
+			"test/**/*.test.ts"
+		]
+	},
+	"keywords": [
+		"cli",
+		"cmd",
+		"colors",
+		"command",
+		"helper",
+		"scripts",
+		"terminal",
+		"tools",
+		"utility"
+	],
+	"dependencies": {
+		"chalk": "^2.4.1",
+		"deep-extend": "^0.6.0",
+		"normalize-package-data": "^2.4.0",
+		"read-pkg-up": "^4.0.0",
+		"semver": "^5.6.0",
+		"yargs-parser": "^11.1.1"
+	},
+	"devDependencies": {
+		"@types/node": "^10.12.10",
+		"ava": "^1.0.0-rc.2",
+		"del-cli": "^1.1.0",
+		"nyc": "^13.1.0",
+		"rollup": "^0.67.3",
+		"rollup-plugin-commonjs": "^9.2.0",
+		"rollup-plugin-typescript2": "^0.18.0",
+		"ts-node": "^7.0.1",
+		"tslint": "^5.11.0",
+		"tslint-xo": "^0.10.0",
+		"typescript": "^3.1.6"
+	}
+}

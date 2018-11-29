@@ -1,0 +1,6 @@
+{
+	"name": "awesome",
+	"bin": {
+		"awesome": "cli.js"
+	}
+}

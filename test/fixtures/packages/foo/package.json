@@ -1,0 +1,6 @@
+{
+	"name": "foo",
+	"bin": {
+		"program": "cli.js"
+	}
+}

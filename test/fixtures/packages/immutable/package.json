@@ -1,0 +1,6 @@
+{
+	"name": "immutable",
+	"bin": {
+		"woow": "cli.js"
+	}
+}
