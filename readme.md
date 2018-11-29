@@ -1,5 +1,6 @@
 # Zield <!-- omit in toc -->
 
+[![Travis CI](https://img.shields.io/travis/iguntur/zield.svg?style=flat-square)](https://travis-ci.org/iguntur/zield)
 [![node](https://img.shields.io/node/v/zield.svg?style=flat-square)]()
 [![npm](https://img.shields.io/npm/v/zield.svg?style=flat-square)](https://www.npmjs.org/package/zield)
 [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)]()
