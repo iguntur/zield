@@ -108,6 +108,12 @@ export default (() => {
 		const commandSchema = store.getCommandTaskByName(taskName);
 		const contextInput = parseArguments(processArgv, commandSchema);
 
+		if (process.argv.includes('--version')) {
+			console.log(`v${pkg.version}`);
+			process.exit(0);
+			return;
+		}
+
 		if (processArgv.includes('--help')) {
 			return commander.showHelp(taskName).catch(() => {}); // tslint:disable-line:no-empty
 		}

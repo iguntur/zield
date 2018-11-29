@@ -244,3 +244,11 @@ test.cb('scope - log fatal', stderr, {
 		stderr: ' scope:fail  error'
 	}
 });
+
+test.cb('show version', stdout, {
+	cwd: './fixtures/packages/awesome',
+	argv: ['cli', '--version'],
+	expected: {
+		stdout: 'v1.0.0'
+	}
+});
