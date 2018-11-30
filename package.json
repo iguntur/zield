@@ -4,6 +4,7 @@
 	"description": "CLI utility for my scripts",
 	"license": "MIT",
 	"main": "dist/index.js",
+	"repository": "iguntur/zield",
 	"files": [
 		"dist",
 		"index.d.ts"
