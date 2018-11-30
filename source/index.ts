@@ -1,4 +1,4 @@
-import {MainCommandInterface, TaskFunction, SetupFunction} from '../index.d';
+import {ZieldInterface, TaskFunction, SetupFunction} from '../index.d';
 import os from 'os';
 import path from 'path';
 import readPkgUp from 'read-pkg-up';
@@ -24,7 +24,7 @@ const STATE = (() => {
 	};
 })();
 
-export class Command implements MainCommandInterface {
+export class Zield implements ZieldInterface {
 	constructor(argv = process.argv.slice(2)) {
 		store.init({argv, flags: STATE.flags});
 	}
@@ -121,9 +121,9 @@ export default (() => {
 		emitter.fire(taskName, contextInput);
 	});
 
-	module.exports = new Command();
+	module.exports = new Zield();
 	module.exports.default = module.exports;
-	module.exports.Command = Command;
+	module.exports.Zield = Zield;
 
 	return module.exports;
 })();

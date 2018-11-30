@@ -44,14 +44,14 @@ export interface SetupCommandInterface {
 	flags(input: string): FlagInterface;
 }
 
-export interface MainCommandInterface {
+export interface ZieldInterface {
 	setup(fn: SetupFunction): void;
 	task(fn: TaskFunction): void;
 	task(name: string, fn: TaskFunction): void;
 	task(name: string, description: string, fn: TaskFunction): void;
 }
 
-export class Command implements MainCommandInterface {
+export class Zield implements ZieldInterface {
 	constructor(argv?: typeof process.argv);
 	setup(fn: (p: SetupCommandInterface) => void): void;
 	task(fn: TaskFunction): void;
@@ -59,5 +59,5 @@ export class Command implements MainCommandInterface {
 	task(name: string, description: string, fn: TaskFunction): void;
 }
 
-declare const command: MainCommandInterface;
-export default command;
+declare const zield: ZieldInterface;
+export default zield;

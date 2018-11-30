@@ -1,8 +1,8 @@
-import {MainCommandInterface} from '../index.d';
+import {ZieldInterface} from '../index.d';
 import {serial, TestInterface} from 'ava';
 
 interface Context {
-	command(argv?: string[]): MainCommandInterface;
+	z(argv?: string[]): ZieldInterface;
 }
 
 const test = serial as TestInterface<Context>;
@@ -16,14 +16,14 @@ test.before(() => {
 
 test.beforeEach(t => {
 	// tslint:disable-next-line:no-require-imports
-	const {Command} = require('../source');
+	const {Zield} = require('../source');
 	t.context = {
-		command: argv => new Command(argv)
+		z: argv => new Zield(argv)
 	};
 });
 
 test.cb('#undefined - default', t => {
-	const m = t.context.command(['--verbose']);
+	const m = t.context.z(['--verbose']);
 
 	m.setup(p => {
 		p.flags('--title').string();
@@ -43,7 +43,7 @@ test.cb('#undefined - default', t => {
 });
 
 test.cb('#undefined - command', t => {
-	const m = t.context.command(['cake', '--foo', '--noop']);
+	const m = t.context.z(['cake', '--foo', '--noop']);
 
 	m.task('cake', p => {
 		p.run(proc => {
@@ -55,7 +55,7 @@ test.cb('#undefined - command', t => {
 });
 
 test.cb('#boolean - default false', t => {
-	const m = t.context.command();
+	const m = t.context.z();
 
 	m.setup(p => {
 		p.flags('--help').as('-h');
@@ -77,7 +77,7 @@ test.cb('#boolean - default false', t => {
 });
 
 test.cb('#boolean', t => {
-	const m = t.context.command(['--verbose']);
+	const m = t.context.z(['--verbose']);
 
 	m.setup(p => {
 		p.flags('--production').as('-p').boolean();
@@ -98,7 +98,7 @@ test.cb('#boolean', t => {
 });
 
 test.cb('#boolean - negation', t => {
-	const m = t.context.command(['--no-color', '--no-foo']);
+	const m = t.context.z(['--no-color', '--no-foo']);
 
 	m.setup(p => {
 		p.flags('--foo').boolean(false);
@@ -115,7 +115,7 @@ test.cb('#boolean - negation', t => {
 });
 
 test.cb('#string', t => {
-	const m = t.context.command([
+	const m = t.context.z([
 		'--env', 'production',
 		'--out-dir', 'path/to/dist',
 		'--title', 'unicorn',
@@ -146,7 +146,7 @@ test.cb('#string', t => {
 });
 
 test.cb('#number', t => {
-	const m = t.context.command(['--max', '5', '--concurrency', '4']);
+	const m = t.context.z(['--max', '5', '--concurrency', '4']);
 
 	m.setup(p => {
 		p.flags('--size').as('-s').number(2);
@@ -176,7 +176,7 @@ test.cb('#argv', t => {
 		'@babel/preset-react',
 	];
 
-	const m = t.context.command(['install', '--save-dev', ...packages]);
+	const m = t.context.z(['install', '--save-dev', ...packages]);
 
 	m.task('install', p => {
 		p.argv('package-name');
@@ -201,7 +201,7 @@ test.cb('#argv', t => {
 });
 
 test.cb('#argv - populate', t => {
-	const m = t.context.command(['cake', 'foo', '--bar', '--', '--aa', '--bb', 'baz']);
+	const m = t.context.z(['cake', 'foo', '--bar', '--', '--aa', '--bb', 'baz']);
 
 	m.task('cake', p => {
 		p.run(proc => {
@@ -214,7 +214,7 @@ test.cb('#argv - populate', t => {
 });
 
 test.cb('#flag - get multiple flags', t => {
-	const m = t.context.command(['cake', 'foo', '--noop', '--bar', '--baz', 'quux', '--max', '4']);
+	const m = t.context.z(['cake', 'foo', '--noop', '--bar', '--baz', 'quux', '--max', '4']);
 
 	m.task('cake', p => {
 		p.flags('--bar');
