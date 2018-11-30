@@ -252,3 +252,31 @@ test.cb('show version', stdout, {
 		stdout: 'v1.0.0'
 	}
 });
+
+test.cb('loop - pass', stdout, {
+	cwd: './fixtures/packages/log',
+	argv: ['cli', 'loop:pass'],
+	expected: {
+		stdout: (() => {
+			const str: string[] = [];
+			for (let n = 1; n <= 20; n++) {
+				str.push(` loop:pass  log:${n}`);
+			}
+			return multiline(str);
+		})()
+	}
+});
+
+test.cb('loop - error', stderr, {
+	cwd: './fixtures/packages/log',
+	argv: ['cli', 'loop:error'],
+	expected: {
+		stderr: (() => {
+			const str: string[] = [];
+			for (let n = 1; n <= 20; n++) {
+				str.push(` loop:error  fatal:${n}`);
+			}
+			return multiline(str);
+		})()
+	}
+});

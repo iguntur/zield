@@ -22,15 +22,6 @@ const status = {
 	}
 };
 
-function readDataStream(input) {
-	return new stream.Readable({
-		read() {
-			this.push(input);
-			this.push(null);
-		}
-	});
-}
-
 function makeBuffer(input, ...rest) {
 	let buffer;
 
@@ -49,29 +40,26 @@ function makeBuffer(input, ...rest) {
 	return buffer;
 }
 
-function transformLineStream(opts: object & {scope?: string}) {
-	return new stream.Transform({
-		transform(chunk, _, done) {
-			chunk.toString().split(os.EOL).filter(line => line.trim() !== '').forEach(line => {
-				// Ignore default task '*'
-				if (typeof opts.scope === 'string') {
-					this.push(opts.scope);
-					this.push(' ');
-				}
-				this.push(line);
-				this.push(os.EOL);
-			});
-			done();
-		}
-	});
+function transformLine(ws: NodeJS.WritableStream, chunk, command, scope) {
+	chunk.toString().split(os.EOL)
+		.filter(str => str !== '')
+		.forEach(str => {
+			if (command !== DEFAULT_TASK) {
+				ws.write(scope);
+				ws.write(' ');
+			}
+			ws.write(makeBuffer(str));
+			ws.write(os.EOL);
+		});
 }
 
-function createCommandStream(command, scope, chunk) {
-	return readDataStream(makeBuffer(chunk)).pipe(
-		transformLineStream({
-			scope: command === DEFAULT_TASK ? null : scope // Ignore default task '*'
-		})
-	);
+function writeLineStream(processStream: NodeJS.WritableStream, command, scope) {
+	return new stream.Writable({
+		write(chunk, _, callback) {
+			transformLine(processStream, chunk, command, scope);
+			callback();
+		}
+	});
 }
 
 class ProcessHandler implements ProcessInterface {
@@ -93,27 +81,13 @@ class ProcessHandler implements ProcessInterface {
 	get stdout() {
 		const command = this.state.command;
 		const scope = status.pass(command);
-		return new stream.Writable({
-			write(chunk, _, callback) {
-				createCommandStream(command, scope, chunk)
-					.on('error', err => callback(err))
-					.on('end', () => callback())
-					.pipe(process.stdout);
-			}
-		});
+		return writeLineStream(process.stdout, command, scope);
 	}
 
 	get stderr() {
 		const command = this.state.command;
 		const scope = status.fail(command);
-		return new stream.Writable({
-			write(chunk, _, callback) {
-				createCommandStream(command, scope, chunk)
-					.on('error', err => callback(err))
-					.on('end', () => callback())
-					.pipe(process.stderr);
-			}
-		});
+		return writeLineStream(process.stderr, command, scope);
 	}
 
 	get = (search: string | string[] = '') => {
@@ -126,12 +100,12 @@ class ProcessHandler implements ProcessInterface {
 
 	fatal = (error: string | Buffer | Error, ...errors) => {
 		const buffer = makeBuffer(error, ...errors);
-		readDataStream(buffer).pipe(this.stderr);
+		this.stderr.write(buffer);
 	};
 
 	log = (input: string, ...inputs) => {
 		const buffer = makeBuffer(input, ...inputs);
-		readDataStream(buffer).pipe(this.stdout);
+		this.stdout.write(buffer);
 	};
 }
 
