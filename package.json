@@ -1,6 +1,6 @@
 {
 	"name": "zield",
-	"version": "0.0.1-alpha.3",
+	"version": "0.0.1-alpha.4",
 	"description": "CLI utility for my scripts",
 	"license": "MIT",
 	"main": "dist/index.js",
