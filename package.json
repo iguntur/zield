@@ -3,11 +3,10 @@
 	"version": "0.0.1-alpha.3",
 	"description": "CLI utility for my scripts",
 	"license": "MIT",
-	"main": "index.js",
+	"main": "dist/index.js",
 	"files": [
 		"dist",
-		"index.d.ts",
-		"index.js"
+		"index.d.ts"
 	],
 	"typings": "index.d.ts",
 	"scripts": {
